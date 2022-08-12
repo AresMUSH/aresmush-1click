@@ -14,7 +14,7 @@ then
   exit
 fi
 
-echo "Choose the port that people will connect to from a MUSH client.  See https://aresmush.com/tutorials/install/install-game.html#ports for help. [4201]"
+echo "Choose the port that people will connect to from a MUSH client.  See https://aresmush.com/tutorials/install/ports.html for help. [4201]"
 read PORT_NUM
 PORT_NUM=${PORT_NUM:-4201}
 
@@ -25,6 +25,8 @@ PASSWD=${PASSWD:-$RANDOMPW}
 ENCRYPTEDPW=$(openssl passwd -1 "$PASSWD")
 
 echo -e "ares user will be created with password $PASSWD"
+
+echo -e "${ARES_INSTALL_TEXT} Beginning installation. This will take a little while. Please be patient..."
 
 # #########################################################################################
 
@@ -93,14 +95,13 @@ sudo ufw allow "Nginx Full"
 sudo ufw allow 4200:4210/tcp
 sudo ufw allow $PORT_NUM/tcp
 
-FILE=.ssh
+echo -e "${ARES_INSTALL_TEXT} User ${ARES_USERNAME} created with password $PASSWD  Keep it in a safe place."
+
+FILE=~/.ssh
 if [ -d "$FILE" ]; then
-  cp -R .ssh /home/ares
+  cp -R ~/.ssh /home/ares
   chown -R ares /home/ares/.ssh
   echo -e "SSH key copied to ares user. You can now log in using your SSH key."
-else
-  echo -e "${ARES_INSTALL_TEXT} User ${ARES_USERNAME} created with password $PASSWD  Keep it in a safe place."
 fi
-
 
 echo -e "${ARES_INSTALL_TEXT} Done!"
