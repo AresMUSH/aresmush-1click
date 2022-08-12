@@ -17,6 +17,8 @@ fi
 echo "Choose the port that people will connect to from a MUSH client.  See https://aresmush.com/tutorials/install/ports.html for help. [4201]"
 read PORT_NUM
 PORT_NUM=${PORT_NUM:-4201}
+let WEBSOCKET_PORT=$PORT_NUM+1
+let API_PORT=$PORT_NUM+2
 
 echo "Enter a password for your ares user, or leave blank to generate a random password."
 RANDOMPW=$(openssl rand 1000 | strings | grep -io [[:alnum:]] | head -n 16 | tr -d '\n')
@@ -94,6 +96,8 @@ sudo ufw allow "Nginx HTTPS"
 sudo ufw allow "Nginx Full"
 sudo ufw allow 4200:4210/tcp
 sudo ufw allow $PORT_NUM/tcp
+sudo ufw allow $WEBSOCKET_PORT/tcp
+sudo ufw allow $API_PORT/tcp
 
 echo -e "${ARES_INSTALL_TEXT} User ${ARES_USERNAME} created with password $PASSWD  Keep it in a safe place."
 
