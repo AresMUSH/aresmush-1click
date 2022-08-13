@@ -2,7 +2,6 @@ This repo contains the resources needed to create an [AresMUSH](https://aresmush
 
 You can create an AresMUSH server using the [DigitalOcean Marketplace](https://marketplace.digitalocean.com/).
 
-License
-=======
+## License
 
-See [License](https://github.com/AresMUSH/aresmush/blob/master/LICENSE.md)
+See [License](https://aresmush.com/license.html)
