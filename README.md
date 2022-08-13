@@ -2,7 +2,7 @@ This repo contains the resources needed to create an [AresMUSH](https://aresmush
 
 ## AresMUSH 1-Click Image
 
-You can create an AresMUSH server using the 1-click droplet image on the [DigitalOcean Marketplace](https://marketplace.digitalocean.com/apps/aresmush).
+You can create an AresMUSH server using the 1-click droplet image on the [DigitalOcean Marketplace](https://marketplace.digitalocean.com/apps/aresmush?refcode=5c07173bc1f2).
 
 The AresMUSH 1-click image comes with all the software you need to run your own [AresMUSH](https://aresmush.com) server. There are just a few steps you must do to finalize the installation and configure your game.
 
