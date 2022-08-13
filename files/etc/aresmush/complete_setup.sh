@@ -105,7 +105,9 @@ FILE=~/.ssh
 if [ -d "$FILE" ]; then
   cp -R ~/.ssh /home/ares
   chown -R ares /home/ares/.ssh
-  echo -e "SSH key copied to ares user. You can now log in using your SSH key."
+  echo -e "${ARES_INSTALL_TEXT} SSH key copied to ares user. You can now log in using your SSH key."
 fi
 
 echo -e "${ARES_INSTALL_TEXT} Done!"
+
+echo -e "${ARES_INSTALL_TEXT} It is highly recommended that you install a security certificate. Log in as the ares user and run bin/certs from the aresmush directory."
