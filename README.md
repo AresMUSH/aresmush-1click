@@ -33,7 +33,7 @@ bin/certs
 
 Your game will now be running at `https://yourcustomdomain.com` or `http://youripaddress`. You can also connect through a MUSH client using the port you configured during setup. See [Next Steps](https://aresmush.com/tutorials/install/next-steps.html) for getting started with your game.
 
-If you run into any trouble during the installation process, [contact us](https://aresmush.com/feedback.html).
+If you run into any trouble during the installation process, ask for help on the [AresMUSH Forum](https://forum.aresmush.com).
 
 ## License
 
