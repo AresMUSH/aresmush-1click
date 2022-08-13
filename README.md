@@ -12,7 +12,7 @@ The AresMUSH 1-click image comes with all the software you need to run your own 
 
 After creating your own droplet using the 1-click image:
 
-1. Connect to your new droplet [using SSH](https://www.digitalocean.com/docs/droplets/how-to/connect-with-ssh/) as **root**.
+1. Connect to your new droplet [using SSH](https://www.digitalocean.com/docs/droplets/how-to/connect-with-ssh/) as **root**: `ssh root@your_droplet_public_ipv4`.
 2. Run the following commands, and follow the prompts to enter your game information:
 
 ```
@@ -31,7 +31,7 @@ bin/certs
 
 4. Reboot the server.
 
-Your game will now be running at `https://yourcustomdomain.com` or `http://youripaddress`. You can also connect through a MUSH client using the port you configured during setup. See [Next Steps](https://aresmush.com/tutorials/install/next-steps.html) for getting started with your game.
+Your game will now be running at `https://yourcustomdomain.com` or `http://your_droplet_public_ipv4`. You can also connect through a MUSH client using the port you configured during setup. See [Next Steps](https://aresmush.com/tutorials/install/next-steps.html) for getting started with your game.
 
 If you run into any trouble during the installation process, ask for help on the [AresMUSH Forum](https://forum.aresmush.com).
 
