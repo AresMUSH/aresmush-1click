@@ -2,6 +2,11 @@
 
 export ARES_INSTALL_TEXT="\n\n<\033[0;34mINSTALL\033[0m>"
 
+# Turn off auto prompts
+export NEEDRESTART_MODE=l
+export DEBIAN_FRONTEND=noninteractive
+export NEEDRESTART_SUSPEND=y
+
 echo "Give your MUSH a name.  You can change your game name, description and category later in the web portal configuration screen."
 read MUSH_NAME
 MUSH_NAME=${MUSH_NAME:-Your AresMUSH}
@@ -38,9 +43,20 @@ echo -e "${ARES_INSTALL_TEXT} Updating Ubuntu packages."
 
 add-apt-repository -y ppa:chris-lea/redis-server
 
-apt-get -y update
+DEBIAN_FRONTEND=noninteractive \
+  apt-get \
+  -o Dpkg::Options::=--force-confold \
+  -o Dpkg::Options::=--force-confdef \
+  -y --allow-downgrades --allow-remove-essential --allow-change-held-packages update
+
 apt-get -y install dialog apt-utils
-apt-get -y -o Dpkg::Options::="--force-confnew" upgrade
+
+DEBIAN_FRONTEND=noninteractive \
+  apt-get \
+  -o Dpkg::Options::=--force-confold \
+  -o Dpkg::Options::=--force-confdef \
+  -y --allow-downgrades --allow-remove-essential --allow-change-held-packages upgrade
+
 
 # #########################################################################################
 
@@ -56,6 +72,10 @@ usermod -p "$ENCRYPTEDPW" ${ARES_USERNAME}
 
 addgroup www
 usermod -a -G sudo,www,redis ${ARES_USERNAME}
+
+# Needed for Ubuntu 21+ to allow web access to game dir
+
+sudo chmod a+x /home/ares
 
 # #########################################################################################
 

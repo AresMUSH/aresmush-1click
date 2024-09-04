@@ -2,17 +2,29 @@
 
 export ARES_INSTALL_TEXT="\n\n<\033[0;34mINSTALL\033[0m>"
 
+sed -i 's/#$nrconf{kernelhints} = -1;/$nrconf{kernelhints} = 0;/' /etc/needrestart/needrestart.conf
+
+# Turn off auto prompts
+export NEEDRESTART_MODE=l
+export DEBIAN_FRONTEND=noninteractive
+export NEEDRESTART_SUSPEND=y
+
 # #########################################################################################
 
 echo -e "${ARES_INSTALL_TEXT} Updating Ubuntu packages."
 
 # Set up redis PPA so we get a recent version
 
-add-apt-repository -y ppa:chris-lea/redis-server
+add-apt-repository -y ppa:redislabs/redis
 
 apt-get -y update
 apt-get -y install dialog apt-utils
-apt-get -y -o Dpkg::Options::="--force-confnew" upgrade
+
+DEBIAN_FRONTEND=noninteractive \
+  apt-get \
+  -o Dpkg::Options::=--force-confold \
+  -o Dpkg::Options::=--force-confdef \
+  -y --allow-downgrades --allow-remove-essential --allow-change-held-packages upgrade
 
 # #########################################################################################
 
@@ -45,7 +57,7 @@ apt-get install -y nginx
 echo -e "${ARES_INSTALL_TEXT} Dependency mgmt for ember cli"
 apt-get install -y nodejs
 apt-get install -y npm
-apt-get install -y python
+apt-get install -y python3
 
 # #########################################################################################
 
@@ -97,8 +109,13 @@ sudo systemctl enable redis-server
 
 echo -e "${ARES_INSTALL_TEXT} RVM needs some libs."
 
-sudo apt-get update
-sudo apt-get install -y autoconf automake bison libffi-dev libgdbm-dev libncurses5-dev libsqlite3-dev libtool libyaml-dev pkg-config sqlite3 zlib1g-dev libreadline-dev libssl-dev
+DEBIAN_FRONTEND=noninteractive \
+  apt-get \
+  -o Dpkg::Options::=--force-confold \
+  -o Dpkg::Options::=--force-confdef \
+  -y --allow-downgrades --allow-remove-essential --allow-change-held-packages update
+
+apt-get install -y autoconf automake bison libffi-dev libgdbm-dev libncurses5-dev libsqlite3-dev libtool libyaml-dev pkg-config sqlite3 zlib1g-dev libreadline-dev libssl-dev
 
 # #########################################################################################
 
@@ -109,6 +126,10 @@ sudo ufw default allow outgoing
 sudo ufw allow OpenSSH
 sudo ufw --force enable
 
+# Clean up DO droplet stuff
+apt-get purge droplet-agent* -y
+
 # #########################################################################################
 
 echo -e "${ARES_INSTALL_TEXT} Done!"
+
