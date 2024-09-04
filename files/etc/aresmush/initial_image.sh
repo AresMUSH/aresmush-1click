@@ -122,7 +122,14 @@ DEBIAN_FRONTEND=noninteractive \
   -y --allow-downgrades --allow-remove-essential --allow-change-held-packages upgrade
 
 
-apt-get install -y autoconf automake bison libffi-dev libgdbm-dev libncurses5-dev libsqlite3-dev libtool libyaml-dev pkg-config sqlite3 zlib1g-dev libreadline-dev libssl-dev libssl-dev libssl3 openssl
+apt-get install -y autoconf automake bison libffi-dev libgdbm-dev libncurses5-dev libsqlite3-dev libtool libyaml-dev pkg-config sqlite3 zlib1g-dev libreadline-dev libssl-dev libssl3 openssl
+
+DEBIAN_FRONTEND=noninteractive \
+  apt-get \
+  -o Dpkg::Options::=--force-confold \
+  -o Dpkg::Options::=--force-confdef \
+  -y --allow-downgrades --allow-remove-essential --allow-change-held-packages upgrade
+
 
 # #########################################################################################
 
